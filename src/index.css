@@ -1,0 +1,54 @@
+:root {
+  font-family: 'DM Sans', 'Trebuchet MS', sans-serif;
+  color: #2a1b14;
+  background: #f5efe5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --espresso: #2a1b14;
+  --deep: #112b1b;
+  --ivory: #f5efe5;
+  --cream: #fffaf1;
+  --gold: #b8892e;
+  --muted-gold: #d7bd84;
+  --ruby: #843527;
+  --line: rgba(42, 27, 20, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 0;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  color: var(--espresso);
+  background: var(--ivory);
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+::selection {
+  color: var(--cream);
+  background: var(--deep);
+}

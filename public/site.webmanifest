@@ -1,0 +1,16 @@
+{
+  "name": "Zenvira Liora",
+  "short_name": "Zenvira Liora",
+  "description": "Curated premium imitation jewellery.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5efe5",
+  "theme_color": "#112b1b",
+  "icons": [
+    {
+      "src": "/favicon.webp",
+      "sizes": "96x96",
+      "type": "image/webp"
+    }
+  ]
+}

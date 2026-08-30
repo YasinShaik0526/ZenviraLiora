@@ -1,0 +1,32 @@
+{
+  "name": "zenvira-liora-website",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node scripts/validate-catalogue.mjs && node scripts/generate-qrs.mjs && node scripts/generate-sitemap.mjs",
+    "build": "tsc -b && vite build",
+    "generate:qrs": "node scripts/generate-qrs.mjs",
+    "lint": "oxlint",
+    "validate:catalogue": "node scripts/validate-catalogue.mjs",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-react": "^1.37.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.1.0",
+    "oxlint": "^1.79.0",
+    "qrcode": "^1.5.4",
+    "sharp": "^0.35.4",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.2"
+  }
+}
