@@ -23,13 +23,14 @@ const emptyProduct = (id: number): Product => ({
 })
 
 const listValue = (values: string[]) => values.join(', ')
-const parseList = (value: string) => value.split(',').map((item) => item.trim()).filter(Boolean)
+const parseList = (value: string) => value.split(/[\n,]/).map((item) => item.trim()).filter(Boolean)
 const stockAvailability = (quantity: number, lowStockLevel: number): ProductAvailability => quantity <= 0 ? 'Out of stock' : quantity <= lowStockLevel ? 'Limited' : 'Available'
 
 export default function AdminCatalogue() {
   const [products, setProducts] = useState<Product[]>([])
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [message, setMessage] = useState('Loading catalogue...')
+  const [additionalImagesText, setAdditionalImagesText] = useState<Record<number, string>>({})
 
   useEffect(() => {
     void fetch('/api/local-catalogue').then(async (response) => {
@@ -83,6 +84,7 @@ export default function AdminCatalogue() {
             <label>Availability<select value={selected.availability} onChange={(event) => update({ availability: event.target.value as ProductAvailability })}>{['Available','Limited','Out of stock','Confirm availability'].map((item) => <option key={item}>{item}</option>)}</select></label>
             <label>Status<select value={selected.status ?? 'published'} onChange={(event) => update({ status: event.target.value as ProductStatus })}>{['draft','published','archived'].map((item) => <option key={item}>{item}</option>)}</select></label>
             <label>Image path<input required placeholder="/products/item-name.webp" value={selected.image} onChange={(event) => update({ image: event.target.value })} /></label>
+            <label className="wide-field">Additional image paths, one per line or comma separated<textarea rows={3} placeholder="/products/item-name-side.webp&#10;/products/item-name-detail.webp" value={additionalImagesText[selected.id] ?? listValue(selected.images ?? [])} onChange={(event) => setAdditionalImagesText((current) => ({ ...current, [selected.id]: event.target.value }))} onBlur={() => update({ images: parseList(additionalImagesText[selected.id] ?? '') })} /><small>{parseList(additionalImagesText[selected.id] ?? listValue(selected.images ?? [])).length} additional image{parseList(additionalImagesText[selected.id] ?? listValue(selected.images ?? [])).length === 1 ? '' : 's'} ready</small></label>
             <label>Weight (optional)<input placeholder="e.g. 24 g" value={selected.weight} onChange={(event) => update({ weight: event.target.value })} /></label>
             <label>Dimensions (optional)<input placeholder="e.g. 42 cm long" value={selected.dimensions} onChange={(event) => update({ dimensions: event.target.value })} /></label>
             <label>Finish<input value={selected.finish} onChange={(event) => update({ finish: event.target.value })} /></label>

@@ -4,6 +4,7 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  VITE_SITE_URL = "https://zenviraliora.com"
 
 [[redirects]]
   from = "/*"
