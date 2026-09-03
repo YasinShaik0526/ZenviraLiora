@@ -5,7 +5,12 @@ export default async (request) => {
   const { RESEND_API_KEY, RESEND_FROM_EMAIL } = process.env
   if (!RESEND_API_KEY || !RESEND_FROM_EMAIL) return new Response(JSON.stringify({ error: 'Email service is not configured' }), { status: 503, headers: { 'Content-Type': 'application/json' } })
 
-  const order = await request.json()
+  let order
+  try {
+    order = await request.json()
+  } catch {
+    return new Response(JSON.stringify({ error: 'Request body must be valid JSON' }), { status: 400, headers: { 'Content-Type': 'application/json' } })
+  }
   if (!order || typeof order !== 'object' || !order.id || !order.invoice || !order.name || !order.email || !Array.isArray(order.items) || typeof order.total !== 'number') return new Response(JSON.stringify({ error: 'Invalid order payload' }), { status: 400, headers: { 'Content-Type': 'application/json' } })
   const items = order.items.map(({ product, quantity }) => `${product.sku} - ${product.name} x${quantity} - INR ${((product.salePrice ?? product.price ?? 0) * quantity).toLocaleString('en-IN')}`).join('\n')
   const details = [`Order ID: ${order.id}`, `Invoice: ${order.invoice}`, `Date: ${new Date(order.date).toLocaleDateString('en-IN')}`, `Customer: ${order.name}`, `Mobile: ${order.phone}`, `Email: ${order.email}`, `Address: ${order.address}`, `Payment: ${order.payment}`, '', 'Items:', items, '', `Taxable subtotal: INR ${order.subtotal.toLocaleString('en-IN')}`, `GST: INR ${order.gst.toLocaleString('en-IN')}`, `Delivery: ${order.delivery ? `INR ${order.delivery}` : 'Free'}`, `Total: INR ${order.total.toLocaleString('en-IN')}`].join('\n')

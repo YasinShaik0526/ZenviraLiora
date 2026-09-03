@@ -5,6 +5,7 @@
 [build.environment]
   NODE_VERSION = "22"
   VITE_SITE_URL = "https://zenviraliora.com"
+  RESEND_FROM_EMAIL = "ZenviraLiora@gmail.com"
 
 [[redirects]]
   from = "/*"
