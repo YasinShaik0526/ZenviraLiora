@@ -28,9 +28,9 @@ Stock quantity derives customer availability automatically:
 
 ## Add images
 
-1. Prepare an approved image without overwriting its original source.
-2. Place the website copy in `public/products`.
-3. Enter `/products/filename.webp` as the image path.
+1. Drop the approved photo into `src/assets/products`, named to match the product slug (for example `kundan-petal-set.jpeg`).
+2. Run `npm run optimize:images`. It automatically converts every photo in that folder to an optimized `.webp` and publishes copies to `src/assets/optimized` (for the built-in demo catalogue) and `public/products` (for `content/products.json`).
+3. Enter `/products/filename.webp` as the image path for the product.
 4. Confirm that the image renders before publishing.
 
 ## Validate and publish through GitHub

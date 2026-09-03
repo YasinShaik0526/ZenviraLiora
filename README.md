@@ -31,10 +31,9 @@ Copy `.env.example` to `.env` for local development and set the same values in *
 - `VITE_SALES_EMAIL`: verified customer-care address (`ZenviraLiora@gmail.com`)
 - `VITE_REGISTERED_ADDRESS`: flyer-published Hyderabad location
 - `VITE_SITE_URL`: verified public origin used for canonical links and the sitemap
-- `VITE_GA_ID`: optional Google Analytics measurement ID
 - `VITE_ERROR_ENDPOINT`: optional HTTPS endpoint accepting client error JSON
 
-Netlify detects the `purchase-request` form during deployment. Configure form submission email notifications in **Netlify → Forms → Form notifications**. Local submissions are copied to the clipboard instead of being falsely reported as delivered.
+The website is a browsing catalogue. Online ordering is disabled; enquiries are made directly on WhatsApp or email, not through a website form.
 
 The website does not create confirmed orders, reserve stock, or take payment. Prices, stock, business contacts, delivery times, and return windows must be verified by the company before publication. Current policy pages intentionally defer unconfirmed commercial values to the written order confirmation.
 
