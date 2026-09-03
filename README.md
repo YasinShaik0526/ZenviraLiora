@@ -1,6 +1,6 @@
 # Zenvira Liora Website
 
-Responsive React storefront for Zenvira Liora Private Limited, presenting a curated premium imitation jewellery collection with product discovery, detailed quick views, a persistent selection bag, and Netlify-backed purchase requests.
+Responsive React sales website for Zenvira Liora Private Limited, presenting a curated premium imitation jewellery collection with product discovery, quick views, persistent cart, direct checkout, automatic order email confirmations, and GST PDF invoices.
 
 ## Run locally
 
@@ -31,12 +31,11 @@ Copy `.env.example` to `.env` for local development and set the same values in *
 - `VITE_SALES_EMAIL`: verified customer-care address (`ZenviraLiora@gmail.com`)
 - `VITE_REGISTERED_ADDRESS`: flyer-published Hyderabad location
 - `VITE_SITE_URL`: verified public origin used for canonical links and the sitemap
-- `VITE_GA_ID`: optional Google Analytics measurement ID
 - `VITE_ERROR_ENDPOINT`: optional HTTPS endpoint accepting client error JSON
+- `RESEND_API_KEY`: server-only Resend API key for order confirmation emails
+- `RESEND_FROM_EMAIL`: sender address on a verified Resend domain, for example `orders@zenviraliora.com`
 
-Netlify detects the `purchase-request` form during deployment. Configure form submission email notifications in **Netlify → Forms → Form notifications**. Local submissions are copied to the clipboard instead of being falsely reported as delivered.
-
-The website does not create confirmed orders, reserve stock, or take payment. Prices, stock, business contacts, delivery times, and return windows must be verified by the company before publication. Current policy pages intentionally defer unconfirmed commercial values to the written order confirmation.
+When a customer places an order, the Netlify Function at `/.netlify/functions/send-order-confirmation` sends the order details to `ZenviraLiora@gmail.com` and a confirmation to the customer email. The website also generates a GST PDF invoice locally. Prices, stock, business contacts, delivery times, and return windows must be verified by the company before publication.
 
 Product photographs and the official logo were supplied from `F:\GitHub\CK_Sales_POS\images`.
 
@@ -60,13 +59,13 @@ Run `npm run dev` and open `/admin` to maintain products locally. The editor sav
 
 Follow `docs/CATALOGUE_SETUP.md` for the complete edit, validation, and GitHub deployment workflow. No external database is required.
 
-After the first Netlify deployment:
+Before the first production order:
 
-1. Confirm `purchase-request` appears under **Netlify → Forms**.
-2. Configure the verified notification recipient.
-3. Submit one test request containing a SKU and one sourcing-only request.
-4. Confirm the messages arrive with consent, occasion, date, budget, gift-box preference, and notes.
-5. Scan both QR codes from a second device and verify their destinations.
+1. Verify `zenviraliora.com` in Resend and create an API key.
+2. Add `RESEND_API_KEY` and `RESEND_FROM_EMAIL` in **Netlify → Site configuration → Environment variables**.
+3. Deploy and place a test order using a real customer email address.
+4. Confirm the store email arrives at `ZenviraLiora@gmail.com` and the customer email arrives at the checkout address.
+5. Confirm the downloaded GST PDF includes GSTIN `36AADCZ0700G1ZO`.
 6. Confirm the generated `sitemap.xml`, canonical URL, social preview, and every direct route use the final domain.
 
 ## Deployment
